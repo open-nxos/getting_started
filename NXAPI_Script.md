@@ -1,7 +1,7 @@
 
 #Configure physical ethernet port for various interface properties on eth1/1
-POST URL: http://SWITCH_IP/api/mo/sys/intf/phys-[eth1/1].json?query-target=self
 
+    POST URL: http://SWITCH_IP/api/mo/sys/intf/phys-[eth1/1].json?query-target=self
     Content-Type: application/json
     Cache-Control: no-cache
     POST BODY :
