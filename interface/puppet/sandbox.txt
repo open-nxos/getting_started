@@ -14,6 +14,7 @@ Following steps would execute the manifest files on nx9000 switch.
 11. Run ‘export PATH=$PATH:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/puppet/lib’
 12. Run 'puppet agent -t'. The configuration would be updated automatically on the switch.
 
+
 How to connect to sandbox lab:
 
 1. Go to the sandbox homepage: https://developer.cisco.com/site/devnet/sandbox/
