@@ -1,17 +1,48 @@
-Following are the steps to be executed.
 
-1. SSH to toolserver host using provided credentials. (If credentials are not provided Default username is ‘cisco’
-and password ‘cisco123’
-2. Copy the respective manifest script to /etc/puppetlabs/code/environments/production/manifests directory. For
-example, if you want to configure interface then create manifest file
-configure_interface.pp using vi editor and paste the respective script in this file.
+1. SSH to toolserver host using provided credentials. (If credentials are not provided Default username is ‘cisco’ and password ‘cisco123’
+2. Copy the respective manifest script to /etc/puppetlabs/code/environments/production/manifests directory. For example, if you want to configure interface then create manifest file configure_interface.pp using vi editor and paste the respective script in this file.
 3. Save and exit.
-4. Run 'export PATH=$PATH:/opt/puppetlabs/bin:/opt/puppetlabs/lib' on toolserver
-5. Run ‘sudo puppet cert –list’
-6. Run ‘sudo puppet cert sign nx9k_switch_hostname’ # -- use agent hostname
-7. Login to Switch sandbox.
-8. On the switch console run 'run bash;
-9. Run 'sudo ip netns exec management bash'
-10. open ‘vim /etc/puppetlabs/puppet/puppet.conf’ and add the toolserver hostname in ‘server’ section.
+4. Run 'sudo su'
+5. Start the puppetserver service. Run 'service puppetserver start'  or  '/opt/puppetlabs/puppet/bin/ruby /opt/puppetlabs/bin/puppet master'
+6. Run 'export PATH=$PATH:/opt/puppetlabs/bin:/opt/puppetlabs/lib' on toolserver
+7. Run ‘puppet cert list -a’  
+
+Note : If agent hostname is not listed in the certificates in step 7 then we need to add the certificate first. Follow the steps mentioned in "Steps to add the certificates" section.
+
+8. Login to Switch sandbox.
+9. On the switch console run 'run bash'
+10. Run 'sudo ip netns exec management bash'
 11. Run ‘export PATH=$PATH:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/puppet/lib’
-12. Run 'puppet agent -t'. The configuration would be updated automatically on the switch.
+12. export http and https proxy by executing these commands.
+       Run 'export http_proxy=http://proxy.esl.cisco.com:8080'
+       Run 'export https_proxy=http://proxy.esl.cisco.com:8080'
+13. Install "install cisco_node_utils" package by executing following command,
+       Run 'gem install cisco_node_utils'
+14. Run 'puppet agent -t'. The configuration would be updated automatically on the switch.
+15. Go to switch prompt and run 'copy r s'
+
+
+Steps to add the certificates :
+
+1. Login to Switch sandbox.
+2. On the switch console run 'run bash'
+3. Run 'sudo ip netns exec management bash'
+4. Run 'export PATH=$PATH:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/puppet/lib'
+5. Run 'rm -rf  /etc/puppetlabs/puppet/ssl' to clean all the old certificates.
+6. Run 'puppet agent -t' on bash shell. This will create a new certificate.
+7. Now login to toolserver.
+8. Run 'sudo su'
+9. Start the puppetserver service. Run 'service puppetserver start'  or  '/opt/puppetlabs/puppet/bin/ruby /opt/puppetlabs/bin/puppet master'
+10. Run 'export PATH=$PATH:/opt/puppetlabs/bin:/opt/puppetlabs/lib' on toolserver
+11. Run ‘puppet cert --list’ . It should list the certificate sent by agent #agent hostname should be present.
+12. Run 'puppet cert sign <certificate name>'.  For example, puppet cert sign "n9kvswitchfcs.cisco.com"​   ## agent hostname
+
+
+How to connect to sandbox lab:
+
+1. Go to the sandbox homepage: https://developer.cisco.com/site/devnet/sandbox/
+2. Login. Hit the yellow button “Go To the Labs” button   # Replace “Go To the Labs” with "Get Started!"(In the page it is Get Started)
+3. In the upper-right corner click on “DEVNET”.
+4. Now you are in Cisco's Devnet domain and it would list the labs hosted under the domain.
+5. You can find the 8 tiles for the NX-OS labs. The tiles are named as "Open NX-OS Lab -1(through 8)"
+6. Click on 'Reserve' a lab. Upon successful reservation you would receive a mail from "devnetsandbox@cisco.com" that describes further instructions to access the sandbox.
