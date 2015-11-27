@@ -34,7 +34,7 @@ Steps to add the certificates :
 8. Run 'sudo su'
 9. Start the puppetserver service. Run 'service puppetserver start'  or  '/opt/puppetlabs/puppet/bin/ruby /opt/puppetlabs/bin/puppet master'
 10. Run 'export PATH=$PATH:/opt/puppetlabs/bin:/opt/puppetlabs/lib' on toolserver
-11. Run ‘puppet cert --list’ . It should list the certificate sent by agent #agent hostname should be present.
+11. Run ‘puppet cert list -a’ . It should list the certificate sent by agent #agent hostname should be present.
 12. Run 'puppet cert sign <certificate name>'.  For example, puppet cert sign "n9kvswitchfcs.cisco.com"​   ## agent hostname
 
 
