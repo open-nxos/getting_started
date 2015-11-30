@@ -1,3 +1,4 @@
+Following steps would execute the manifest files on nx9000 switch.
 
 1. SSH to toolserver host using provided credentials. (If credentials are not provided Default username is ‘cisco’ and password ‘cisco123’
 2. Copy the respective manifest script to /etc/puppetlabs/code/environments/production/manifests directory. For example, if you want to configure interface then create manifest file configure_interface.pp using vi editor and paste the respective script in this file.
