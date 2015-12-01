@@ -10,6 +10,10 @@ Following steps would execute the manifest files on nx9000 switch.
 7. Run ‘puppet cert list -a’  
 
 Note : If agent hostname is not listed in the certificates in step 7 then we need to add the certificate first. Follow the steps mentioned in "Steps to add the certificates" section.
+Note : Note: Make sure "/etc/hosts" file has correct IP and hostname mapping for toolserver
+	Example: toolserver IP: 10.10.10.114
+		  hostname: toolserver-devnet.insieme.local
+		  Then, "/etc/hosts" should contain "10.10.10.114   toolserver-devnet.insieme.local toolserver-devnet"
 
 8. Login to Switch sandbox.
 9. On the switch console run 'run bash'
